@@ -1,13 +1,12 @@
 {
-    "builds": [{
-        "src": "girmantech/wsgi.py",
-        "use": "@ardnt/vercel-python-wsgi",
-        "config": { "maxLambdaSize": "15mb" }
-    }],
+    "version": 2,
+    "builds": [
+      { "src": "manage.py", "use": "@vercel/python" },
+      { "src": "static/**/*", "use": "@vercel/static" }
+    ],
     "routes": [
-        {
-            "src": "/(.*)",
-            "dest": "girmantech/wsgi.py"
-        }
+      { "src": "/static/(.*)", "dest": "/static/$1" },
+      { "src": "/(.*)", "dest": "manage.py" }
     ]
-}
+  }
+  
