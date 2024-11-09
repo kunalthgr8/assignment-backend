@@ -2,11 +2,13 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+from django.core.wsgi import get_wsgi_application
 
 
 def main():
     """Run administrative tasks."""
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "girmantech.settings")
+
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
@@ -15,6 +17,10 @@ def main():
             "available on your PYTHONPATH environment variable? Did you "
             "forget to activate a virtual environment?"
         ) from exc
+
+    # For Vercel, we expose the WSGI application as the entry point
+    application = get_wsgi_application()
+
     execute_from_command_line(sys.argv)
 
 
